@@ -59,6 +59,9 @@ LICENSE = __import__(PACKAGE).__license__
 with open('README.rst') as file:
     long_description = file.read()
 
+def _requires_from_file(filename):
+    return open(filename).read().splitlines()
+
 setup(
     name=NAME,
     version=VERSION,
@@ -71,12 +74,7 @@ setup(
     python_requires='>=3.6',
     #packages=["malss", "malss.app"],
     packages=find_packages(),
-    install_requires=[
-        'scikit-learn>=0.20',
-        'matplotlib>=1.5.1',
-        'pandas>=0.14.1',
-        'jinja2>=2.8'
-        ],
+    install_requires=_requires_from_file('requirements.txt'),
     include_package_data=True,
     package_data={"malss": ["template/*.tmp",
                             "static/*.png",

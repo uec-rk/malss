@@ -1,0 +1,7 @@
+numpy==1.16.4
+scipy==1.2.1
+matplotlib==3.1.0
+pandas==0.24.2
+scikit-learn==0.21.1
+Jinja2==2.10.1
+PyQt5==5.10
