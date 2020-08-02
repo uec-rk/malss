@@ -494,13 +494,18 @@ class MALSS(object):
                     return pred
                 else:
                     mse = mean_squared_error(y, pred)
-                    ncat = sum(self.data.X.dtypes == 'object')
-                    nnum = len(self.data.X.dtypes) - ncat
-                    print('MSE:{},NCA:{},NNU:{}'.format(mse, ncat, nnum))
+                    print('MSE:{0:.0f},COL:{1}'.format(mse, ','.join(list(self.data.X.columns))))
                     with open('result.txt', 'w') as fo:
-                        fo.write('MSE:{},NCA:{},NNU:{}'.format(mse, ncat, nnum))
+                        fo.write('MSE:{0:.0f},COL:{1}'.format(mse, ','.join(list(self.data.X.columns))))
             else:
-                return estimator.predict(self.data.transform(X))
+                pred = estimator.predict(self.data.transform(X))
+                if y is None:
+                    return pred
+                else:
+                    mse = mean_squared_error(y, pred)
+                    print('MSE:{0:.0f},COL:{1}'.format(mse, ','.join(list(self.data.X.columns))))
+                    with open('result.txt', 'w') as fo:
+                        fo.write('MSE:{0:.0f},COL:{1}'.format(mse, ','.join(list(self.data.X.columns))))
         elif self.task == "clustering":
             return Clustering.predict(self.algorithms, self.data.transform(X))
 

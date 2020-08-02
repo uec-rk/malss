@@ -32,57 +32,71 @@ class Prediction(Content):
 
         self.show_best_algorithm()
 
+        # if params.lang == 'jp':
+        #     self.set_paragraph(
+        #         '学習結果の出力',
+        #         text=('学習結果をresultsというフォルダ内に出力します．\n'
+        #               '予測モデルを出力するディレクトリを選択してください。\n'
+        #               '同名のファイルがある場合上書きされますので気をつけてください．'))
+        # else:
+        #     self.set_paragraph(
+        #         'Output your results',
+        #         text=('You can output your results in the folder named'
+        #               '"results".\n'
+        #               'Choose your output directory.\n'
+        #               'Note that tha file will be overwritten.'))
+
+        # hbox1 = QHBoxLayout()
+        # hbox1.setContentsMargins(10, 10, 10, 10)
+
+        # lbl_dir = QLabel('Location:', self.inner)
+        # self.le_dir = QLineEdit(self.inner)
+        # do_btn = QPushButton('Browse...', self.inner)
+        # do_btn.clicked.connect(self.dir_open_dialog)
+
+        # hbox1.addWidget(lbl_dir)
+        # hbox1.addWidget(self.le_dir)
+        # hbox1.addWidget(do_btn)
+
+        # self.vbox.addLayout(hbox1)
+
+        # if self.params.out_dir is not None:
+        #     self.le_dir.setText(self.params.out_dir)
+
+        # if params.lang == 'jp':
+        #     self.set_paragraph(
+        #         '未知データの予測',
+        #         text=('学習したモデルで予測を行いたいデータ（目的変数の無いデータ）'
+        #               'があればファイルを選択してください．\n'
+        #               '入力ファイルは学習用データと説明変数の並び順が同じで，'
+        #               '目的変数の無いCSVファイルである必要があります\n'
+        #               '予測結果は入力ファイルと同じディレクトリにpredict.csv'
+        #               'という名前で出力されます．同名のファイルは上書きされます'
+        #               'ので気をつけてください．'))
+        # else:
+        #     self.set_paragraph(
+        #         'Prediction',
+        #         text=('If you have a data to predict target variable, '
+        #               'choose your input file.\n'
+        #               'Input file must have same features as training data '
+        #               '(same order) and must not have target variable.\n'
+        #               'The results save as predict.csv in the same directory '
+        #               'as the input file. Note that the file will be '
+        #               'overwritten.'))
+
         if params.lang == 'jp':
             self.set_paragraph(
-                '学習結果の出力',
-                text=('学習結果をresultsというフォルダ内に出力します．\n'
-                      '予測モデルを出力するディレクトリを選択してください。\n'
-                      '同名のファイルがある場合上書きされますので気をつけてください．'))
+                '被験者の方用',
+                text=('data_test.csvファイルを入力して予測を行います．\n'
+                      '結果はresult.txtに出力されます．\n'
+                      '以降の操作は指示書に従ってください．'))
         else:
             self.set_paragraph(
-                'Output your results',
-                text=('You can output your results in the folder named'
-                      '"results".\n'
-                      'Choose your output directory.\n'
-                      'Note that tha file will be overwritten.'))
+                'For MTurk workers',
+                text=('Set data_test.csv for evaluate your model.\n'
+                      'The results save as result.txt in the current directory \n'
+                      'After that, please follow the instruction.'))
 
-        hbox1 = QHBoxLayout()
-        hbox1.setContentsMargins(10, 10, 10, 10)
-
-        lbl_dir = QLabel('Location:', self.inner)
-        self.le_dir = QLineEdit(self.inner)
-        do_btn = QPushButton('Browse...', self.inner)
-        do_btn.clicked.connect(self.dir_open_dialog)
-
-        hbox1.addWidget(lbl_dir)
-        hbox1.addWidget(self.le_dir)
-        hbox1.addWidget(do_btn)
-
-        self.vbox.addLayout(hbox1)
-
-        if self.params.out_dir is not None:
-            self.le_dir.setText(self.params.out_dir)
-
-        if params.lang == 'jp':
-            self.set_paragraph(
-                '未知データの予測',
-                text=('学習したモデルで予測を行いたいデータ（目的変数の無いデータ）'
-                      'があればファイルを選択してください．\n'
-                      '入力ファイルは学習用データと説明変数の並び順が同じで，'
-                      '目的変数の無いCSVファイルである必要があります\n'
-                      '予測結果は入力ファイルと同じディレクトリにpredict.csv'
-                      'という名前で出力されます．同名のファイルは上書きされます'
-                      'ので気をつけてください．'))
-        else:
-            self.set_paragraph(
-                'Prediction',
-                text=('If you have a data to predict target variable, '
-                      'choose your input file.\n'
-                      'Input file must have same features as training data '
-                      '(same order) and must not have target variable.\n'
-                      'The results save as predict.csv in the same directory '
-                      'as the input file. Note that the file will be '
-                      'overwritten.'))
 
         hbox2 = QHBoxLayout()
         hbox2.setContentsMargins(10, 10, 10, 10)
@@ -98,9 +112,6 @@ class Prediction(Content):
 
         self.vbox.addLayout(hbox2)
 
-        if self.params.path_pred is not None:
-            self.le_file.setText(self.params.path_pred)
-
         hbox3 = QHBoxLayout()
         hbox3.setContentsMargins(10, 10, 10, 10)
 
@@ -108,6 +119,10 @@ class Prediction(Content):
         self.btn.setStyleSheet('QPushButton{font: bold; font-size: 15pt; background-color: white;};')
         self.btn.clicked.connect(self.__button_clicked)
         self.btn.setEnabled(False)
+
+        if self.params.path_pred is not None:
+            self.le_file.setText(self.params.path_pred)
+            self.btn.setEnabled(False)
 
         hbox3.addStretch(1)
         hbox3.addWidget(self.btn)
@@ -120,6 +135,7 @@ class Prediction(Content):
         fname = QFileDialog.getOpenFileName(self, 'File open', '')
         self.le_file.setText(fname[0])
         self.params.path_pred = fname[0]
+        self.btn.setEnabled(True)
 
     def dir_open_dialog(self):
         dname = QFileDialog.getExistingDirectory(self, 'Directory open', '')
@@ -186,7 +202,7 @@ class Prediction(Content):
         self.vbox.addWidget(table1)
 
     def __button_clicked(self):
-        self.__output()
+        # self.__output()
 
         if self.params.path_pred is not None:
             self.__predict()
@@ -312,8 +328,14 @@ class Prediction(Content):
                 col_types.append(self.params.col_types[i])
         try:
             # engine='python' is to avoid pandas's bug.
-            X = pd.read_csv(self.params.path_pred, header=0, engine='python',
-                            dtype=self.make_dtype(columns, col_types))
+            # X = pd.read_csv(self.params.path_pred, header=0, engine='python',
+            #                 dtype=self.make_dtype(columns, col_types))
+            columns.append('Target')
+            col_types.append('float64')
+            Xy = pd.read_csv(self.params.path_pred, header=0, engine='python',
+                             dtype=self.make_dtype(columns, col_types))
+            X = Xy.drop('Target', axis=1)
+            y = Xy['Target']
         except Exception:
             import traceback
             self.params.error = traceback.format_exc()
@@ -326,7 +348,8 @@ class Prediction(Content):
         else:
             estimator = self.params.results['best_algorithm']['estimator']
             mdl = self.params.mdl
-        pred = mdl.predict(X, estimator)
-        pd.Series(pred).to_csv(
-            os.path.dirname(self.params.path_pred) + '/predict.csv',
-            index=False, header=False)
+        # pred = mdl.predict(X, estimator=estimator)
+        pred = mdl.predict(X, y, estimator=estimator)
+        # pd.Series(pred).to_csv(
+        #     os.path.dirname(self.params.path_pred) + '/predict.csv',
+        #     index=False, header=False)
