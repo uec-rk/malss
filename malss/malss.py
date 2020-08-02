@@ -14,6 +14,7 @@ from sklearn.model_selection import StratifiedKFold, KFold
 from sklearn.model_selection import GridSearchCV, learning_curve
 from sklearn.svm import SVC, LinearSVC, SVR
 from sklearn.metrics import classification_report, make_scorer
+from sklearn.metrics import mean_squared_error
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression, Ridge, SGDRegressor,\
@@ -484,11 +485,20 @@ class MALSS(object):
                 print('Make report.')
             self.__make_report(dname)
 
-    def predict(self, X, estimator=None):
+    def predict(self, X, y=None, estimator=None):
         if self.task == 'classification' or self.task == 'regression':
             if estimator is None:
-                return self.algorithms[self.best_index].estimator.predict(
+                pred = self.algorithms[self.best_index].estimator.predict(
                     self.data.transform(X))
+                if y is None:
+                    return pred
+                else:
+                    mse = mean_squared_error(y, pred)
+                    ncat = sum(self.data.X.dtypes == 'object')
+                    nnum = len(self.data.X.dtypes) - ncat
+                    print('MSE:{},NCA:{},NNU:{}'.format(mse, ncat, nnum))
+                    with open('result.txt', 'w') as fo:
+                        fo.write('MSE:{},NCA:{},NNU:{}'.format(mse, ncat, nnum))
             else:
                 return estimator.predict(self.data.transform(X))
         elif self.task == "clustering":
