@@ -40,7 +40,7 @@ class DataCheck(Content):
 
         for r in range(nr):
             for c in range(len(self.params.columns)):
-                item = QTableWidgetItem(str(self.params.data5.iat[r, c]))
+                item = QTableWidgetItem('{:.4f}'.format(self.params.data5.iat[r, c]))
                 item.setFlags(Qt.ItemIsEnabled)
                 table.setItem(r, c, item)
 
