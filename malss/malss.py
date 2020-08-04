@@ -494,7 +494,9 @@ class MALSS(object):
                     return pred
                 else:
                     mse = mean_squared_error(y, pred)
-                    print('MSE:{0:.0f},COL:{1}'.format(mse, ','.join(list(self.data.X.columns))))
+                    message = 'MSE:{0:.0f},COL:{1}'.format(mse, ','.join(list(self.data.X.columns)))
+                    for k, v in self.algorithms[self.best_index].best_params.items():
+                        message += ',{}:{}'.format(k, v)
                     with open('result.txt', 'w') as fo:
                         fo.write('MSE:{0:.0f},COL:{1}'.format(mse, ','.join(list(self.data.X.columns))))
             else:
