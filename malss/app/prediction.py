@@ -94,8 +94,9 @@ class Prediction(Content):
             self.set_paragraph(
                 'For MTurk workers',
                 text=('Set data_test.csv for evaluate your model.\n'
-                      'The results save as result.txt in the current directory \n'
-                      'After that, please follow the instruction.'))
+                      'The results are saved as result.txt in the current directory \n'
+                      'After that, back to the machine learning survey, \n'
+                      'and copy the sentence in the result.txt and paste it to the form in the survey.'))
 
 
         hbox2 = QHBoxLayout()
