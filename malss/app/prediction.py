@@ -175,8 +175,8 @@ class Prediction(Content):
         table1.setRowCount(1)
         table1.setColumnCount(len(self.best_params) + 3)
         table1.setHorizontalHeaderLabels(
-            ['Algorithm', 'Feature selection'] + self.best_param_names +
-            ['Score'])
+            ['  ' + c + '  ' for c in ['Algorithm', ' Feature selection '] + self.best_param_names +
+             ['Score']])
 
         item = QTableWidgetItem(self.best_algo_name)
         item.setFlags(Qt.ItemIsEnabled)

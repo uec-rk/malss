@@ -3,7 +3,7 @@
 import os
 from PyQt5.QtWidgets import (QHBoxLayout, QPushButton,
                              QTableWidgetItem, QRadioButton, QButtonGroup,
-                             QWidget, QLabel)
+                             QWidget, QLabel, QHeaderView)
 from PyQt5.QtCore import Qt
 from .content import Content
 from .nonscroll_table import NonScrollTable
@@ -36,7 +36,7 @@ class DataCheck(Content):
 
         table.setRowCount(nr)
         table.setColumnCount(len(self.params.columns))
-        table.setHorizontalHeaderLabels(self.params.columns)
+        table.setHorizontalHeaderLabels([' ' + c + ' ' for c in self.params.columns])
 
         for r in range(nr):
             for c in range(len(self.params.columns)):
@@ -64,7 +64,7 @@ class DataCheck(Content):
         htable.setRowCount(len(self.params.columns))
         htable.setColumnCount(4)
         htable.setHorizontalHeaderLabels(
-            ['columns', 'categorical', 'numerical', 'target'])
+            ['  columns  ', '  categorical  ', '  numerical  ', '  target  '])
 
         self.lst_cat = []
         self.lst_num = []

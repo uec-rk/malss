@@ -28,7 +28,7 @@ class FeatureSelection(Analyzer):
 
         table1.setRowCount(nr)
         table1.setColumnCount(2)
-        table1.setHorizontalHeaderLabels(['Original', 'Selected Features'])
+        table1.setHorizontalHeaderLabels([' Original ', '   Selected Features   '])
 
         for r in range(nr):
             item = QTableWidgetItem(self.params.X.columns[r])

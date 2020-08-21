@@ -118,7 +118,7 @@ class ResultsBase(Content):
 
             table.setRowCount(len(scores))
             table.setColumnCount(len(scores[0]))
-            table.setHorizontalHeaderLabels(param_names + ['Score'])
+            table.setHorizontalHeaderLabels(['  ' + p + '  ' for p in param_names + ['Score']])
 
             for r in range(len(scores)):
                 for c in range(len(scores[0])):
